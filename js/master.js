@@ -4,6 +4,25 @@
 
     }); // jquery ready
 
+    saveJsonToLocalStorage = function(name, jsonObject) {
+      var strJson = JSON.stringify(jsonObject);
+      console.log('saveJsonToLocalStorage: ', strJson);
+
+      // Put the object into storage
+      localStorage.setItem(name, strJson);
+    }
+
+    getJsonObjectFromLocalStorage = function(name) {
+      // Retrieve the object from storage
+      var retrievedObject = localStorage.getItem(name);
+
+      var obj = JSON.parse(retrievedObject);
+
+      console.log('getJsonObjectFromLocalStorage: ', obj);
+      return obj;
+    }
+
+
 
       // Your Client ID can be retrieved from your project in the Google
       // Developer Console, https://console.developers.google.com
@@ -74,6 +93,10 @@
           range: 'Raw Aquatic System Data!A1:F',
         }).then(function(response) {
           var range = response.result;
+
+          saveJsonToLocalStorage('lastResponse', response);
+
+
           if (range.values.length > 0) {
             $output.append('<table></table>');
 
