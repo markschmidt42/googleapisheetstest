@@ -80,19 +80,21 @@
         }).then(function(response) {
           var range = response.result;
           if (range.values.length > 0) {
-            $output.append('<table style="background-color:#ccc">');
+            $output.append('<table style="background-color:#ccc"><thead></thead><tbody></tbody></table>');
+            var $thead = $output.find("table thead");
+            var $tbody = $output.find("table tbody");
+
             for (i = 0; i < range.values.length; i++) {
               var row = range.values[i];
-              if (i == 0) $output.append('<thead>');
-              if (i == 1) $output.append('<tbody>');
-              
-              // Print columns A and E, which correspond to indices 0 and 4.
-              $output.append('<tr><td>'+ row[0] + '</td><td>' + row[1]+ '</td><td>' + row[2]+ '</td><td>' + row[3]+ '</td><td>' + row[4]+ '</td><td>' + row[5] + '</td></tr>');
- 
 
-               if (i == 0) $output.append('</thead>');
+              var trString = '<tr><td>'+ row[0] + '</td><td>' + row[1]+ '</td><td>' + row[2]+ '</td><td>' + row[3]+ '</td><td>' + row[4]+ '</td><td>' + row[5] + '</td></tr>'
+              
+              if (i == 0) 
+                $thead.append(trString);
+              else
+                $tbody.append(trString);
+
            }
-            $output.append('</tbody></table>');
           } else {
             $output.append('No data found.');
           }
