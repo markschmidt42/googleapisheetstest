@@ -11,7 +11,7 @@ thead td {
     background: #ccc;
 }
 
-thead td {
+tbody td {
     border: solid 1px #999;
     background: #eee;
 }
