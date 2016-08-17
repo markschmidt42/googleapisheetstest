@@ -64,16 +64,16 @@
        */
       function listMajors() {
         gapi.client.sheets.spreadsheets.values.get({
-          spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
-          range: 'Class Data!A2:E',
+          spreadsheetId: '1mnmJztlfiTFfzU_naJJYC-uM8jioI1_GCi0cZxkKiQE',
+          range: 'Form Responses 1!A1:D',
         }).then(function(response) {
           var range = response.result;
           if (range.values.length > 0) {
-            appendPre('Name, Major:');
+            //appendPre('Name, Major:');
             for (i = 0; i < range.values.length; i++) {
               var row = range.values[i];
               // Print columns A and E, which correspond to indices 0 and 4.
-              appendPre(row[0] + ', ' + row[4]);
+              appendPre(row[0] + ', ' + row[2]+ ', ' + row[3]+ ', ' + row[3]+ ', ' + row[4]);
             }
           } else {
             appendPre('No data found.');
