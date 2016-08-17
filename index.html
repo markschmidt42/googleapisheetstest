@@ -65,7 +65,7 @@
       function listMajors() {
         gapi.client.sheets.spreadsheets.values.get({
           spreadsheetId: '1e5KLFI0l8YNMg2Fjqcdc-f-GJVFW1XG9t9gS5kbAsFk',
-          range: 'Form Responses 1!A1:D',
+          range: 'Raw Aquatic System Data!A1:F',
         }).then(function(response) {
           var range = response.result;
           if (range.values.length > 0) {
@@ -73,7 +73,7 @@
             for (i = 0; i < range.values.length; i++) {
               var row = range.values[i];
               // Print columns A and E, which correspond to indices 0 and 4.
-              appendPre(row[0] + ', ' + row[1]+ ', ' + row[2]+ ', ' + row[3]);
+              appendPre(row[0] + ', ' + row[1]+ ', ' + row[2]+ ', ' + row[3]+ ', ' + row[4]+ ', ' + row[5]);
             }
           } else {
             appendPre('No data found.');
