@@ -1,0 +1,17 @@
+table {
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+}
+
+thead td {
+    border: solid 1px black;
+    background: #ccc;
+}
+
+thead td {
+    border: solid 1px #999;
+    background: #eee;
+}
