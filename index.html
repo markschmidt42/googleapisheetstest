@@ -80,9 +80,10 @@
         }).then(function(response) {
           var range = response.result;
           if (range.values.length > 0) {
-            $output.append('<table style="background-color:#ccc"><thead></thead><tbody></tbody></table>');
-            var $thead = $output.find("table thead");
-            var $tbody = $output.find("table tbody");
+            $output.append('<table style="background-color:#ccc"></table>');
+
+            var $thead = $output.find("table").append("<thead></thead>");
+            var $tbody = $output.find("table").append("<tbody></tbody>");
 
             for (i = 0; i < range.values.length; i++) {
               var row = range.values[i];
