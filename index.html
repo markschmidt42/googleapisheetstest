@@ -69,12 +69,13 @@
         }).then(function(response) {
           var range = response.result;
           if (range.values.length > 0) {
-            //appendPre('Name, Major:');
+            appendPre('<table style="background-color:#ccc">');
             for (i = 0; i < range.values.length; i++) {
               var row = range.values[i];
               // Print columns A and E, which correspond to indices 0 and 4.
-              appendPre(row[0] + ', ' + row[1]+ ', ' + row[2]+ ', ' + row[3]+ ', ' + row[4]+ ', ' + row[5]);
+              appendPre('<tr><td>'+ row[0] + '</td><td>' + row[1]+ '</td><td>' + row[2]+ '</td><td>' + row[3]+ '</td><td>' + row[4]+ '</td><td>' + row[5] + '</td></tr>');
             }
+            appendPre('</table>');
           } else {
             appendPre('No data found.');
           }
