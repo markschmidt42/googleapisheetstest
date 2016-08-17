@@ -82,8 +82,10 @@
           if (range.values.length > 0) {
             $output.append('<table style="background-color:#ccc"></table>');
 
-            var $thead = $output.find("table").append("<thead></thead>");
-            var $tbody = $output.find("table").append("<tbody></tbody>");
+            var $thead = $("<thead></thead>");
+            $output.find("table").append($thead);
+            var $tbody = $("<tbody></tbody>");
+            $output.find("table").append($tbody);
 
             for (i = 0; i < range.values.length; i++) {
               var row = range.values[i];
