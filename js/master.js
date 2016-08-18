@@ -14,7 +14,7 @@
         if (USE_LIVE_DATA) {
           $.getScript("https://apis.google.com/js/client.js?onload=checkAuth", function(){
 
-             console.log("Script loaded: https://apis.google.com/js/client.js?onload=checkAuth");
+             console.log("Script loaded: https://apis.google.com/js/client.js?onload=ns.checkAuth");
 
           });
         } else {
@@ -55,7 +55,11 @@
       /**
        * Check if current user has authorized this application.
        */
-      function checkAuth() {
+
+       var ns = {};
+       ns.checkAuth = function() {
+
+      //function checkAuth() {
         gapi.auth.authorize(
           {
             'client_id': CLIENT_ID,
