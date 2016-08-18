@@ -64,7 +64,8 @@
             'scope': SCOPES.join(' '),
             'immediate': true
           }, handleAuthResult);
-
+      }
+      
       function checkAuth() {
         ns.checkAuth();
       }
