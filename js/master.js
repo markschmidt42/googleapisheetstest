@@ -111,7 +111,7 @@
         gapi.client.sheets.spreadsheets.values
         .get({
           spreadsheetId: '1e5KLFI0l8YNMg2Fjqcdc-f-GJVFW1XG9t9gS5kbAsFk',
-          range: 'Raw Aquatic System Data!A1:F',
+          range: 'Raw Aquatic System Data!A1:AB',
         })
         .then(
           function(response) {
@@ -145,8 +145,12 @@
               if (row.length == 0)  
                 continue;
 
-              var trString = '<tr><td>'+ i + '</td><td>'+ row[0] + '</td><td>' + row[1]+ '</td><td>' + row[2]+ '</td><td>' + row[3]+ '</td><td>' + row[4]+ '</td><td>' + row[5] + '</td></tr>'
-              
+              var trString = '<tr>';
+              for (var cell = 0; cell < row.length; cell++) {
+                trString = trString + '<td>'+ row[cell] + '</td>';
+              }
+              trString = trString + '</tr>';
+
               if (i == 0) 
                 $thead.append(trString);
               else
