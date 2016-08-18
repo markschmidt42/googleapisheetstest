@@ -50,7 +50,7 @@ app.ProcessRawData = function() {
   })
   .then(
     function(response) {
-      loadData(response);
+      app.loadData(response);
     }, 
     function(response) {
       app.$output.append('Error: ' + response.result.error.message);
