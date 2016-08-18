@@ -1,5 +1,6 @@
 table {
     border-collapse: collapse;
+    font-family: arial;
 }
 
 td {
@@ -9,6 +10,7 @@ td {
 thead td {
     border: solid 1px black;
     background: #ccc;
+    font-size:11px;
 }
 
 tbody td {
