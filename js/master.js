@@ -12,7 +12,7 @@
         USE_LIVE_DATA = (location.protocol != "file:");
 
         if (USE_LIVE_DATA) {
-          $.getScript("https://apis.google.com/js/client.js?onload=checkAuth", function(){
+          $.getScript("https://apis.google.com/js/client.js?onload=ns.checkAuth", function(){
 
              console.log("Script loaded: https://apis.google.com/js/client.js?onload=ns.checkAuth");
 
