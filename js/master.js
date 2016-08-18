@@ -12,9 +12,9 @@
         USE_LIVE_DATA = (location.protocol != "file:");
 
         if (USE_LIVE_DATA) {
-          $.getScript("https://apis.google.com/js/client.js?onload=ns.checkAuth", function(){
+          $.getScript("https://apis.google.com/js/client.js?onload=checkAuth", function(){
 
-             console.log("Script loaded: https://apis.google.com/js/client.js?onload=ns.checkAuth");
+             console.log("Script loaded: https://apis.google.com/js/client.js?onload=checkAuth");
 
           });
         } else {
@@ -58,14 +58,15 @@
 
        var ns = {};
        ns.checkAuth = function() {
-
-      //function checkAuth() {
         gapi.auth.authorize(
           {
             'client_id': CLIENT_ID,
             'scope': SCOPES.join(' '),
             'immediate': true
           }, handleAuthResult);
+
+      function checkAuth() {
+        ns.checkAuth();
       }
 
       /**
