@@ -1,10 +1,32 @@
+    if (!window.console) console = {log: function() {}}; // console.log fix
+
+    var fakeData = {"result":{"range":"'Raw Aquatic System Data'!A1:F1003","majorDimension":"ROWS","values":[["Timestamp","Date at which you completed your sampling","Looking at the map above, which one of the Great Lake drainage basin (i.e. watershed) are you sampling in?","What is the name of the stream you are studying?","If you know (or can find out), what are your GPS coordinates of your study site?","Briefly describe the surrounding area around your stream (i.e. does it mostly run through deciduous woods?; is it in an open area?; are there any areas of concern such as point impact or non-point impact pollution?)"],[],["8/17/2016 19:12:13","8/17/2016","Lake Michigan","BizStream :) I mean Sand Creek","42.9847093,-85.8895391","deciduous woods"]]},"body":"{\n  \"range\": \"'Raw Aquatic System Data'!A1:F1003\",\n  \"majorDimension\": \"ROWS\",\n  \"values\": [\n    [\n      \"Timestamp\",\n      \"Date at which you completed your sampling\",\n      \"Looking at the map above, which one of the Great Lake drainage basin (i.e. watershed) are you sampling in?\",\n      \"What is the name of the stream you are studying?\",\n      \"If you know (or can find out), what are your GPS coordinates of your study site?\",\n      \"Briefly describe the surrounding area around your stream (i.e. does it mostly run through deciduous woods?; is it in an open area?; are there any areas of concern such as point impact or non-point impact pollution?)\"\n    ],\n    [],\n    [\n      \"8/17/2016 19:12:13\",\n      \"8/17/2016\",\n      \"Lake Michigan\",\n      \"BizStream :) I mean Sand Creek\",\n      \"42.9847093,-85.8895391\",\n      \"deciduous woods\"\n    ]\n  ]\n}\n","headers":{"date":"Wed, 17 Aug 2016 23:58:12 GMT","content-encoding":"gzip","server":"ESF","vary":"Origin, X-Origin, Referer","content-type":"application/json; charset=UTF-8","cache-control":"private","content-length":"506"},"status":200,"statusText":null}
+
+    var $output;
+
+    var USE_LIVE_DATA = true;
+
     $(function() {
+        $output = $("#output");
+
+        USE_LIVE_DATA = (location.protocol != "file:");
+
+        if (USE_LIVE_DATA) {
+          $.getScript("https://apis.google.com/js/client.js?onload=checkAuth", function(){
+
+             console.log("Script loaded: https://apis.google.com/js/client.js?onload=checkAuth");
+
+          });
+        } else {
+          loadData(fakeData);
+        }
 
 
 
     }); // jquery ready
 
     saveJsonToLocalStorage = function(name, jsonObject) {
+      console.log(jsonObject)
       var strJson = JSON.stringify(jsonObject);
       console.log('saveJsonToLocalStorage: ', strJson);
 
@@ -86,12 +108,23 @@
        * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
        */
       function listMajors() {
-        var $output = $("#output");
-
-        gapi.client.sheets.spreadsheets.values.get({
+        gapi.client.sheets.spreadsheets.values
+        .get({
           spreadsheetId: '1e5KLFI0l8YNMg2Fjqcdc-f-GJVFW1XG9t9gS5kbAsFk',
           range: 'Raw Aquatic System Data!A1:F',
-        }).then(function(response) {
+        })
+        .then(
+          function(response) {
+            loadData(response);
+
+          }, 
+          function(response) {
+            $output.append('Error: ' + response.result.error.message);
+          }
+        );
+      }
+
+      function loadData(response) {
           var range = response.result;
 
           saveJsonToLocalStorage('lastResponse', response);
@@ -108,6 +141,10 @@
             for (i = 0; i < range.values.length; i++) {
               var row = range.values[i];
 
+              // if no data, skip
+              if (row.length == 0)  
+                continue;
+
               var trString = '<tr><td>'+ i + '</td><td>'+ row[0] + '</td><td>' + row[1]+ '</td><td>' + row[2]+ '</td><td>' + row[3]+ '</td><td>' + row[4]+ '</td><td>' + row[5] + '</td></tr>'
               
               if (i == 0) 
@@ -119,8 +156,6 @@
           } else {
             $output.append('No data found.');
           }
-        }, function(response) {
-          $output.append('Error: ' + response.result.error.message);
-        });
+
       }
 
